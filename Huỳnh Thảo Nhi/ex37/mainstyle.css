@@ -1,0 +1,64 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    border: 1px solid blue;
+    background: gray;
+}
+
+#container ul {
+    list-style: none;
+}
+
+#container ul li {
+    position: relative;
+    float: left;
+}
+
+#container ul li a {
+    display: block;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    padding: .3em 12px;
+    background: #ddd;
+}
+
+#container ul li a:hover {
+    background: orange;
+    color: white;
+}
+
+/* Submenu ẩn */
+#container ul li ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    min-width: 180px;
+    border: 1px solid green;
+    background: white;
+    z-index: 1000;
+}
+
+#container ul li ul li {
+    float: none;
+    border-bottom: 1px solid green;
+}
+
+#container ul li ul li a {
+    background: white;
+    color: black;
+    padding: .5em 10px;
+}
+
+#container ul li ul li a:hover {
+    background: lightgreen;
+}
+
+/* Hover để hiện submenu */
+#container ul li:hover > ul {
+    display: block;
+}

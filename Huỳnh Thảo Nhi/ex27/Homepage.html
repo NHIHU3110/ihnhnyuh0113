@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Frame - Huỳnh Thảo Nhi</title>
+    <style>
+        body {
+            margin: 0;
+            background: url('images/Wall2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: sans-serif;
+        }
+        .logo {
+            text-align: center;
+            background: white;
+            padding: 10px;
+        }
+        .container {
+            display: flex;
+            height: 90vh; /* chiều cao khung dưới */
+        }
+        iframe {
+            border: none;
+        }
+        .left {
+            width: 30%;
+        }
+        .right {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo">
+        <img src="images/LOGO.JPG" height="100">
+    </div>
+
+    <!-- Khung 2 cột -->
+    <div class="container">
+        <iframe class="left" src="List.html" name="frm_name_list"></iframe>
+        <iframe class="right" src="about.html" name="my_container"></iframe>
+    </div>
+</body>
+</html>

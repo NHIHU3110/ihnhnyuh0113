@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <title>CSS - Huỳnh Thảo Nhi</title>
+        <style>
+            tbody tr:hover
+            {
+                background-color:yellow;
+                font-style:italic;
+                cursor: pointer;
+            }
+            table, tr, td, th
+            {
+                border: 1px;
+                border-style:solid;
+            }
+            thead:hover
+            {
+                background-color:purple;
+                color:white;
+                font-weight:bold;
+            }
+            tbody tr:nth-child(2n+1)
+            {
+                background-color:cyan;
+
+            }
+            tbody tr:nth-child(2n)
+            {
+                background-color:orange;
+
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>P001</td>
+                    <td>Pepsi</td>
+                    <td>17,000VNĐ</td>
+                </tr>
+                <tr>
+                    <td>P002</td>
+                    <td>Sprite</td>
+                    <td>18,000VNĐ</td>
+                </tr>
+                <tr>
+                    <td>P003</td>
+                    <td>Sting</td>
+                    <td>19,000VNĐ</td>
+                </tr>
+                <tr>
+                    <td>P004</td>
+                    <td>Mirinda</td>
+                    <td>20,000VNĐ</td>
+                </tr>
+                <tr>
+                    <td>P005</td>
+                    <td>Pepsi ko calo</td>
+                    <td>17,000VNĐ</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
