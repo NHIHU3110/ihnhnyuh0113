@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title> Online Classifield - Huỳnh Thảo Nhi</title>
+        <style>
+            body {
+                background-color: rgb(0, 229, 255);
+                font-family: Arial, sans-serif;
+            }
+            table {
+                margin: auto; 
+            }
+        </style>
+    </head>
+    <body>
+        <h1 style="color:red">Online Classifield Search Form</h1>
+        <hr style="border: 1px solid black;">
+        <form name="frm_login" action="processlogin.html" method="get">
+            <h4>1) Search for a classified in following sections</h4>
+            <input type="radio" name="employment" id="employment" value="employment"/> 
+            <label for="employment">Employment</label>
+            <input type="radio" name="personal" id="personal" value="personal"/> 
+            <label for="personal">Personal</label>
+            <p/>
+            <input type="radio" name="forsale" id="forsale" value="forsale"/> 
+            <label for="forsale">For Sale</label>
+            <input type="radio" name="miscellanecus" id="miscellanecus" value="miscellanecus"/> 
+            <label for="miscellanecus">Miscellanecus</label>
+            <p/>
+            <input type="radio" name="housing" id="housing" value="housing"/> 
+            <label for="housing">Housing</label>
+            <input type="radio" name="all" id="all" value="all"/> 
+            <label for="all">All of above</label>
+            <h4>1) Search for following publications</h4>
+            <input type="checkbox" name="midwesttimes" id="midwesttimes" value="midwesttimes"/> 
+            <label for="midwesttimes">Midwest times</label>
+            <input type="checkbox" name="modernnew" id="modernnew" value="modernnew"/> 
+            <label for="modernnew">Modern new</label>
+            <input type="checkbox" name="employmenttoday" id="employmenttoday" value="employmenttoday"/> 
+            <label for="employmenttoday">Employment Today</label>
+            <p/>
+            <input type="checkbox" name="greatlakeclassifieds" id="greatlakeclassifieds" value="greatlakeclassifieds"/> 
+            <label for="greatlakeclassifieds">Great Lake Classifieds</label>
+            <input type="checkbox" name="middletondaily" id="middletondaily" value="middletondaily"/> 
+            <label for="middletondaily">Middleton Daily</label>
+            <input type="checkbox" name="cashtowndailynews" id="cashtowndailynews" value="cashtowndailynews"/> 
+            <label for="cashtowndailynews">Cashtown Daily New</label>
+            <h4>
+                3) From
+                <input type="date" value="date" name="txtten"/>
+                to
+                <input type="date" value="date" name="txtten"/>
+            </h4>
+            <h4>4) Enter a few keywords to describe the classified</h4>
+            <input type="text" value="text" name="txtten"/>
+        </form>
+    </body>
+</html>
