@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Show and hide image - Huỳnh Thảo Nhi - K234111441</title>
+        <script>
+            function show_hide_image(value)
+            {
+                //step 1: get image element
+                img_taylor=document.getElementById("taylor123")
+                //step 2: hide image (using tyle display: block/none)
+                img_taylor.style="display: none;"
+            }
+        </script>
+    </head>
+    <body>
+        <form name="myform">
+            <input type="radio" name="myimage" id="img1" onchange="show_hide_image('block')"/>
+            <lable for="img1">Show image</lable>
+            <br/>
+            <input type="radio" name="myimage" id="img2" onchange="show_hide_image('none')"/>
+            <label for="img2">Hide image</label>
+            <br/>
+            <img 
+                src="images/2c53a2601dd69788cec7.jpg" 
+                id="taylor123"
+                name="taylor123"
+                height="500"
+                width="350"
+                style="display:block;"
+            />
+        </form>
+    </body>
+</html>

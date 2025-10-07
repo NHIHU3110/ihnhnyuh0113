@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Huỳnh Thảo Nhi - K234111441</title>
+        <script>
+            function change_color(value)
+            {
+                mydiv=document.getElementById("mydiv")
+                mydiv.setAttribute("style","width: 100%; height: 50px; background-color: "+value)
+            }
+            function change_img(value)
+            {
+                mydiv=document.getElementById("author_img")
+                mydiv.setAttribute("src","images/"+value)
+            }
+        </script>
+    </head>
+    <body>
+        <form>
+            <select name="color" id="color" onchange="change_color(this.value)">
+                <option value="blue">Xanh lè</option>
+                <option value="red">Đỏ choét</option>
+                <option value="yellow">Vàng khè</option>
+            </select>
+            <div style="width: 100%; height: 50px; background-color: pink;" id="div">
+                <select name="author" id="author" onchange="change_img(this.value)">
+                    <option value="uong_Coca_co_tot_khong_57b0f440a7.jpg.webp">Coca</option>
+                    <option value="ATH-thiết-kế-bộ-nhận-diện-mới-logo-Pepsi-3.jpg">Pepsi</option>
+                    <option value="dsc08322-enhanced-nr_1_a0e949f164bb47c8bd7165bbce252af1_master.jpg">Sprite</option>
+                    <option value="images.jpeg">Sting</option> 
+                </select>
+                <div>
+                    <img id="author_img" src="images/2c53a2601dd69788cec7.jpg"/>
+            </div>
+        </form>
+    </body>
+</html>
