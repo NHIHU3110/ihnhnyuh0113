@@ -1,6 +1,17 @@
 <html>
     <head>
         <title>Travel Expense Report - Huỳnh Thảo Nhi - K234111441</title>
+        <script>
+             function formclear() 
+            {
+                alert('Form cleared!');
+            }
+
+                function formsubmit() 
+            {
+                alert('Form submitted!');
+            }
+        </script>
     </head>
     <body style="background-color: aqua;">
     <p align="center">
@@ -8,13 +19,96 @@
     </p>
     <h1>Travel Expense Report</h1>
     <hr style="border: 1px solid brown;">
+        <form name="frm_travel_expense">
+            <p>
+                <span>
+                1) First Name<input type="text" name="firstname" id="firstname">
+                </span>
+                <span>
+                Last Name<input type="text" name="lastname" id="lastname">
+                </span>
+            </p>
+            <p>
+                2) Social Security number
+                <input type="text" name="securitynum" id="securitynum">
+            </p>
+            <p>
+                3) Department
+                <select name="department" id="department">
+                    <option value="accouting">Accounting</option>
+                    <option value="ceo">CEO</option>
+                </select>
+            </p>
+            <p>
+                4) Describe a purpose of your trip
+                <input type="text" style="width: 500px; height: 100px;" name="purpose" id="purpose">
+            </p>
+            <p>
+                5) Itemize your travel expense 
+                <table style="border: 1px solid black" cellpadding="5">
+
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                    </tr>
+                    <tr>
+                        <td><input type="date" name="date1" id="date1"></td>
+                        <td><input type="text" name="text1" id="text1"></td>
+                        <td>
+                            <select name="category1" id="category1">
+                                <option value="meal">Meal</option>
+                            </select>
+                        </td>
+                        <td><input type="text" name="amount1" id="amount1"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="date" name="date2" id="date2"></td>
+                        <td><input type="text" name="text2" id="text2"></td>
+                        <td>
+                            <select name="category2" id="category2">
+                                <option value="meal">Meal</option>
+                            </select>
+                        </td>
+                        <td><input type="text" name="amount2" id="amount2"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="date" name="date3" id="date3"></td>
+                        <td><input type="text" name="text3" id="text3"></td>
+                        <td>
+                            <select name="category3" id="category3">
+                                <option value="meal">Meal</option>
+                            </select>
+                        </td>
+                        <td><input type="text" name="amount3" id="amount3"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="date" name="date4" id="date4"></td>
+                        <td><input type="text" name="text4" id="text4"></td>
+                        <td>
+                            <select name="category4" id="category4">
+                                <option value="meal">Meal</option>
+                            </select>
+                        </td>
+                        <td><input type="text" name="amount4" id="amount4"></td>
+                    </tr>
+                </table>
+            </p>
+            <p>
+                6) Have you submitted your receipts?
+                <input type="radio" name="tick" id="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" name="tick" id="no">
+                <label for="no">No</label>
+            </p>
+            <p> 
+                <button type="button" name="submit" id="submit" onclick="formsubmit()">Submit Travel Expense</button>
+                <button type="button" name="reset" id="reset" onclick="formclear()">Reset</button>
+            </p>
+            <p>
+                Question? Contact Debbie Larson in Accounting (ext.2150).
+            </p>
+        </form>
     </body>
-    <p>
-        <span>
-        First Name<input type="text" name="firstname" id="firstname">
-        </span>
-        <span>
-        Last Name<input type="text" name="firstname" id="firstname">
-        </span>
-    </p>
 </html>
