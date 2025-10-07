@@ -2,51 +2,54 @@
     <head>
         <title>Travel Expense Report - Huỳnh Thảo Nhi - K234111441</title>
         <script>
-             function formclear() 
-            {
+            function formclear() {
                 alert('Form cleared!');
             }
 
-                function formsubmit() 
-            {
+            function formsubmit() {
                 alert('Form submitted!');
             }
         </script>
     </head>
     <body style="background-color: aqua;">
-    <p align="center">
-        <img src="DeLong.jpg"/>
-    </p>
-    <h1>Travel Expense Report</h1>
-    <hr style="border: 1px solid brown;">
+        <div align="center">
+            <img src="DeLong.jpg"/>
+        </div>
+
+        <h1>Travel Expense Report</h1>
+        <hr style="border: 1px solid brown;">
+
         <form name="frm_travel_expense">
-            <p>
+            <div>
                 <span>
-                1) First Name<input type="text" name="firstname" id="firstname">
+                    1) First Name <input type="text" name="firstname" id="firstname">
                 </span>
                 <span>
-                Last Name<input type="text" name="lastname" id="lastname">
+                    Last Name <input type="text" name="lastname" id="lastname">
                 </span>
-            </p>
-            <p>
+            </div>
+
+            <div>
                 2) Social Security number
                 <input type="text" name="securitynum" id="securitynum">
-            </p>
-            <p>
+            </div>
+
+            <div>
                 3) Department
                 <select name="department" id="department">
-                    <option value="accouting">Accounting</option>
+                    <option value="accounting">Accounting</option>
                     <option value="ceo">CEO</option>
                 </select>
-            </p>
-            <p>
+            </div>
+
+            <div>
                 4) Describe a purpose of your trip
                 <input type="text" style="width: 500px; height: 100px;" name="purpose" id="purpose">
-            </p>
-            <p>
+            </div>
+
+            <div>
                 5) Itemize your travel expense 
                 <table style="border: 1px solid black" cellpadding="5">
-
                     <tr>
                         <th>Date</th>
                         <th>Description</th>
@@ -94,21 +97,24 @@
                         <td><input type="text" name="amount4" id="amount4"></td>
                     </tr>
                 </table>
-            </p>
-            <p>
+            </div>
+
+            <div>
                 6) Have you submitted your receipts?
                 <input type="radio" name="tick" id="yes">
                 <label for="yes">Yes</label>
                 <input type="radio" name="tick" id="no">
                 <label for="no">No</label>
-            </p>
-            <p> 
+            </div>
+
+            <div>
                 <button type="button" name="submit" id="submit" onclick="formsubmit()">Submit Travel Expense</button>
                 <button type="button" name="reset" id="reset" onclick="formclear()">Reset</button>
-            </p>
-            <p>
+            </div>
+
+            <div>
                 Question? Contact Debbie Larson in Accounting (ext.2150).
-            </p>
+            </div>
         </form>
     </body>
 </html>
