@@ -22,6 +22,18 @@
                 }
                 result_td.innerHTML=`${result}`
             }
+            function do_clear()
+            {
+                document.getElementById("result_td").innerHTML=""
+                my_form.a_coefficient.focus()
+            }
+            function open_help()
+            {
+                if(confirm("open help?"))
+                {
+                    window.open("https://uel.edu.vn","_blank")
+                }
+            }
         </script>
     </head>
     <body>
@@ -47,8 +59,8 @@
                     <td>&nbsp;</td>
                     <td> 
                         <button type="button" onclick="do_solution()">Solution</button>
-                        <button type="reset">Clear</button>
-                        <button type="button">Help</button>
+                        <button type="reset" onclick="do_clear()">Clear</button>
+                        <button type="button" onclick="open_help()">Help</button>
                     </td>
                 </tr>
         </form>
