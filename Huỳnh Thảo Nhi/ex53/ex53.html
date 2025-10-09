@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <title>Ex53 - Huỳnh Thảo Nhi - K234111441</title>
+        <script type="text/javascript">
+            function calculateTotal() {
+                // Lấy giá trị giá của các sản phẩm
+                const priceC112 = 19.95;
+                const priceB124 = 29.95;
+                const priceU125 = 39.95;
+    
+                // Lấy số lượng từ các ô input bằng getElementById
+                const qtyC112 = parseInt(document.getElementById('qty1').value) || 0;
+                const qtyB124 = parseInt(document.getElementById('qty2').value) || 0;
+                const qtyU125 = parseInt(document.getElementById('qty3').value) || 0;
+    
+                // Tính tổng giá trị
+                const total = (qtyC112 * priceC112) + (qtyB124 * priceB124) + (qtyU125 * priceU125);
+    
+                // Hiển thị tổng vào ô sumtotal
+                document.getElementById('sumtotal').value = total.toFixed(2);
+            }
+        </script>
+    </head>
+    <body>
+        <form name="my_form">
+            <table>
+                <tr>
+                    <th>Part Number</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Item Table</th>
+                </tr>
+                <tr>
+                    <td>C112</td>
+                    <td>Mouse</td>
+                    <td>19.95$</td>
+                    <td>
+                        <input type="text" name="qty1" id="qty1">
+                    </td>
+                    <td>
+                        <input type="text" name="item1" id="item1">
+                    </td>
+                </tr>
+                <tr>
+                    <td>B124</td>
+                    <td>Keyboard US</td>
+                    <td>29.95$</td>
+                    <td>
+                        <input type="text" name="qty2" id="qty2">
+                    </td>
+                    <td>
+                        <input type="text" name="item2" id="item2">
+                    </td>
+                </tr>
+                <tr>
+                    <td>U125</td>
+                    <td>USB KingMax</td>
+                    <td>39.95$</td>
+                    <td>
+                        <input type="text" name="qty3" id="qty3">
+                    </td>
+                    <td>
+                        <input type="text" name="item3" id="item3">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <hr>
+                    </td>
+                </tr>
+            </table>
+            <div style="text-align: right;">
+                <span>Sum</span>
+                <input type="text" name="sumtotal" id="sumtotal" readonly><br><br>
+                <button type="button" onclick="calculateTotal()" style="background-color: rgb(255, 213, 0); border-color:orange ">Sum</button>
+                <button type="reset" style="background-color: rgb(255, 213, 0); border-color:orange ">Clear</button>
+            </div>
+        </form>
+    </body>
+</html>
