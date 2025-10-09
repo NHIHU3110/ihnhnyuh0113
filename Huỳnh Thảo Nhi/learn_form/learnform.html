@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>My Form - Huỳnh Thảo Nhi</title>
+    </head>
+    <body>
+        <form name="myform">
+            <script>
+                function update_name()
+                {
+                    myform.full_name.value=myform.first_name.value+
+                    " "+myform.middle_name.value+
+                    " "+myform.last_name.value
+                    full_name_td=document.getElementById('full_name_td')
+                    full_name_td.innerText=myform.full_name.value
+                    //alert('success')
+                }
+            </script>
+            <table>
+                <tr>
+                    <td>First Name:</td>
+                    <td> 
+                        <input type="text" name="first_name" id="first_name" oninput="update_name()"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Middle Name:</td>
+                    <td> 
+                        <input type="text" name="middle_name" id="middle_name" oninput="update_name()"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Last Name:</td>
+                    <td> 
+                        <input type="text" name="last_name" id="last_name" oninput="update_name()"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Full Name:</td>
+                    <td> 
+                        <input type="text" name="full_name" id="full_name" oninput="update_name()"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Full Name:</td>
+                    <td id="full_name_td"></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
