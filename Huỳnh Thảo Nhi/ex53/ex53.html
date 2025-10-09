@@ -2,22 +2,16 @@
     <head>
         <title>Ex53 - Huỳnh Thảo Nhi - K234111441</title>
         <script type="text/javascript">
-            function calculateTotal() {
-                // Lấy giá trị giá của các sản phẩm
+            function calculateTotal() 
+            {
                 const priceC112 = 19.95;
                 const priceB124 = 29.95;
                 const priceU125 = 39.95;
-    
-                // Lấy số lượng từ các ô input bằng getElementById
-                const qtyC112 = parseInt(document.getElementById('qty1').value) || 0;
-                const qtyB124 = parseInt(document.getElementById('qty2').value) || 0;
-                const qtyU125 = parseInt(document.getElementById('qty3').value) || 0;
-    
-                // Tính tổng giá trị
+                const qtyC112 = parseInt(document.getElementById('qty1').value);
+                const qtyB124 = parseInt(document.getElementById('qty2').value);
+                const qtyU125 = parseInt(document.getElementById('qty3').value);
                 const total = (qtyC112 * priceC112) + (qtyB124 * priceB124) + (qtyU125 * priceU125);
-    
-                // Hiển thị tổng vào ô sumtotal
-                document.getElementById('sumtotal').value = total.toFixed(2);
+                document.getElementById('sumtotal').value = total;
             }
         </script>
     </head>
