@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <title>Huỳnh Thảo Nhi - K234111441</title>
+        <style>
+            .container {
+                width: 600px;
+                margin: 0 auto;
+                font-family: Arial, sans-serif;
+            }
+
+            table {
+                width: 100%;
+            }
+
+            input[type="text"], select, textarea {
+                width: 100%;
+                padding: 8px;
+                box-sizing: border-box;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            textarea {
+                height: 120px;
+                resize: vertical;
+            }
+
+            button {
+                background-color: blueviolet;
+                color: white; /* chữ trắng */
+                padding: 10px 20px;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 15px;
+            }
+
+            button:hover {
+                background-color: #8b3de1;
+            }
+
+            .btn-container {
+                text-align: center;
+                padding-top: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <h2>Contact the Editorial Office</h2>
+            <form name="my_form" id="my_form">
+                <table>
+                    <tr>
+                        <td colspan="2">Full Name:
+                            <br/>
+                            <input type="text" name="fullname" id="fullname">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email
+                            <br/>
+                            <input type="text" name="email" id="email">
+                        </td>
+                        <td>Send to
+                            <br/>
+                            <select name="sendto" id="sendto">
+                                <option value="Editorial board">Editorial board</option>
+                                <option value="News Department">News Department</option>
+                                <option value="Board of Perspectives">Board of Perspectives</option>
+                                <option value="World Board">World Board</option>
+                                <option value="Business Department">Business Department</option>
+                            </select>                        
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Title:
+                            <br/>
+                            <input type="text" name="title" id="title">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Content:
+                            <br/>
+                            <textarea name="content" id="content"></textarea>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="btn-container">
+                    <button type="button" id="send">Send</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
