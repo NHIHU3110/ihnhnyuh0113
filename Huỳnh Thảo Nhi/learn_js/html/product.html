@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Tiêu đề trang</title>
+        <script type="text/javascript">
+            var p_item={
+                ID: "P01",
+                Name: "Coca",
+                Quantity:15,
+                Price:30
+            }
+        </script>
+    </head>
+    <body>
+        <form name="my_form">
+            <table border="1">
+                <tr>
+                    <td>Quantity:</td>
+                    <td id="td_quantity"></td>
+                </tr>
+                <tr>
+                    <td>Price:</td>
+                    <td id="td_price"></td>
+                </tr>
+                <tr>
+                    <td>Total value:</td>
+                    <td id="td_value"></td>
+                </tr>
+                <tr>
+                    <td>Image:</td>
+                    <td>
+                        <img id="img_product">
+                    </td>
+                </tr>
+            </table>
+            <script type="text/javascript">
+                td_id.innerText=p_item.Name
+                td_quantity.innerText=p_item.Quantity
+                td_id.innerText=p_item.ID
+            </script>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+<html>
+<head>
+	<title>Huỳnh Thảo Nhi - K234111441</title>
+    <script type="text/javascript">
+        function create_p()
+        {
+            p=document.createElement("p")
+            date= new Date()
+            p.innerText=date.toLocaleTimeString()
+            red=Math.floor(Math.random()*256)
+            blue=Math.floor(Math.random()*256)
+            green=Math.floor(Math.random()*256)
+            p.setAttribute("style","background-color:rgb("+red+","+green+","+blue+");")
+            my_div=document.getElementById("my_div")
+            my_div.appendChild(p)
+        }
+       </script>
+   </head>
+   <body>
+       <form name="my_form">
+        <button type="button" onclick="create_p()">Create P</button>
+        <div id="my_div" style="width:100%;height:300px;overflow-y: scroll;">
+
+        </div>
+        <script type="text/javascript">
+        </script>
+       </form>
+   </body>
+</html>
