@@ -1,0 +1,124 @@
+<html>
+    <head>
+        <title>Huỳnh Thảo Nhi - K234111441</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+            textarea {
+                width: 100%;
+                height: 100px;
+            }
+            td {
+                vertical-align: top;
+            }
+            .button-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                margin-bottom: 10px;
+            }
+            .full-width {
+                width: 100%;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Using String Processing Functions</h2>
+        <table border="1">
+            <tr>
+                <td>
+                    <p>Input Data:</p>
+                    <textarea id="inputText"></textarea>
+                </td>
+                <td>
+                    <p>Result:</p>
+                    <textarea id="resultText" readonly></textarea>
+                </td>
+            </tr>
+        </table>
+        <div class="button-container">
+            <button onclick="enterData()">Enter Data</button>
+            <button onclick="uppercaseDisplay()">Uppercase Display</button>
+            <button onclick="lowercaseDisplay()">Lowercase Display</button>
+            <button onclick="countLowercase()">Count Lowercase</button>
+            <button onclick="countUppercase()">Count Uppercase Characters</button>
+            <button onclick="oneWordPerLine()">Output One Word per Line</button>
+            <button onclick="wordCount()">Word Count</button>
+            <button onclick="vowelsConsonants()">Print Vowels and Consonants</button>
+        </div>
+        <button class="full-width" onclick="w3cWebsite()">W3C's String Processing Website</button>
+        <script>
+            function enterData() {
+                let text = document.getElementById("inputText").value;
+                document.getElementById("resultText").value = text;
+            }
+
+            function countUppercase() {
+                let text = document.getElementById("inputText").value;
+                let count = 0;
+                for (let char of text) {
+                    if (char >= 'A' && char <= 'Z') count++;
+                }
+                document.getElementById("resultText").value = "Number of uppercase characters: " + count;
+            }
+
+            function uppercaseDisplay() {
+                let text = document.getElementById("inputText").value;
+                document.getElementById("resultText").value = text.toUpperCase();
+            }
+
+            function oneWordPerLine() {
+                let text = document.getElementById("inputText").value;
+                let words = text.split(/\s+/).filter(Boolean);
+                document.getElementById("resultText").value = words.join("\n");
+            }
+
+            function lowercaseDisplay() {
+                let text = document.getElementById("inputText").value;
+                document.getElementById("resultText").value = text.toLowerCase();
+            }
+
+            function wordCount() {
+                let text = document.getElementById("inputText").value;
+                let words = text.split(/\s+/).filter(Boolean);
+                document.getElementById("resultText").value = "Number of words: " + words.length;
+            }
+
+            function countLowercase() {
+                let text = document.getElementById("inputText").value;
+                let count = 0;
+                for (let char of text) {
+                    if (char >= 'a' && char <= 'z') count++;
+                }
+                document.getElementById("resultText").value = "Number of lowercase characters: " + count;
+            }
+
+            function vowelsConsonants() {
+                let text = document.getElementById("inputText").value.toLowerCase();
+                let vowels = "aeiou";
+                let vowelList = [];
+                let consonantList = [];
+                for (let char of text) {
+                    if (char >= 'a' && char <= 'z') {
+                        if (vowels.includes(char)) vowelList.push(char);
+                        else consonantList.push(char);
+                    }
+                }
+                document.getElementById("resultText").value = 
+                    "Vowels: " + vowelList.join(", ") + "\nConsonants: " + consonantList.join(", ");
+            }
+
+            function w3cWebsite() {
+                window.open("https://www.w3schools.com/js/js_string_methods.asp", "_blank");
+            }
+        </script>
+    </body>
+</html>

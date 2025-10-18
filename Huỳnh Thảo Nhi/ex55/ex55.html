@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <title>Huỳnh Thảo Nhi - K234111441</title>
+        <style>
+            input { width: 50px; }
+            #result { color: red; }
+            table { margin: 20px; }
+        </style>
+    </head>
+    <body>
+        <h2>The Quadratic Equation</h2>
+        <table border="1" cellpadding="5">
+            <tr>
+            <td>a:</td>
+            <td><input type="number" id="a" value="1"></td>
+            </tr>
+            <tr>
+            <td>b:</td>
+            <td><input type="number" id="b" value="3"></td>
+            </tr>
+            <tr>
+            <td>c:</td>
+            <td><input type="number" id="c" value="-4"></td>
+            </tr>
+            <tr>
+            <td>Result:</td>
+            <td id="result"></td>
+            </tr>
+            <tr>
+            <td colspan="2">
+                <button onclick="findSolution()">Find solution</button>
+                <button onclick="clearFields()">Clear</button>
+            </td>
+            </tr>
+        </table>
+            <script>
+                function findSolution() {
+                const a = parseFloat(document.getElementById('a').value);
+                const b = parseFloat(document.getElementById('b').value);
+                const c = parseFloat(document.getElementById('c').value);
+
+                const discriminant = b * b - 4 * a * c;
+                let resultText = '';
+
+                if (discriminant > 0) {
+                    const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                    const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                    resultText = `x1=${x1} ; x2=${x2}`;
+                } else if (discriminant === 0) {
+                    const x = -b / (2 * a);
+                    resultText = `x=${x}`;
+                } else {
+                    resultText = 'No real solutions';
+                }
+
+                document.getElementById('result').textContent = resultText;
+                }
+
+                function clearFields() {
+                document.getElementById('a').value = '';
+                document.getElementById('b').value = '';
+                document.getElementById('c').value = '';
+                document.getElementById('result').textContent = '';
+                }
+            </script>
+    </body>
+</html>

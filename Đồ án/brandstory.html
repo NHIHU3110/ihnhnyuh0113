@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Câu chuyện thương hiệu - Nailistas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; scroll-behavior: smooth; margin: 0; padding: 0; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #fff8f0;
+      color: #333;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+    }
+    body.fade-in { opacity: 1; }
+
+    /* ---- Header ---- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: #1935E1;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    .nav-left { display: flex; gap: 20px; }
+    .nav-left a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    .nav-left a:hover { text-decoration: underline; }
+    .logo-right img {
+      height: 55px;
+      transition: transform 0.5s ease;
+      cursor: pointer;
+    }
+    .logo-right img:hover { transform: scale(1.1); }
+
+    /* ---- Story section ---- */
+    .story-container {
+      padding: 80px 10%;
+      display: flex;
+      gap: 50px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      animation: fadeUp 1.2s ease;
+    }
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .story-text { flex: 1 1 50%; }
+    .story-text h1 { font-size: 2.5rem; color: #1935E1; margin-bottom: 20px; }
+    .story-text p { line-height: 1.8; font-size: 1.05rem; margin-bottom: 18px; text-align: justify; }
+    .story-images { flex: 1 1 40%; }
+    .story-images img { width: 100%; border-radius: 15px; object-fit: cover; box-shadow: 0 6px 18px rgba(0,0,0,0.1); }
+
+    /* ---- Button quay lại ---- */
+    .back-btn {
+      background: transparent;
+      border: 2px solid #1d1d1d;
+      color: #1d1d1d;
+      border-radius: 50px;
+      padding: 10px 28px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .back-btn:hover {
+      background: #1d1d1d;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ---- Footer ---- */
+    footer {
+      background-color: #1935E1;
+      color: #fff8f0;
+      padding: 40px 10%;
+      text-align: center;
+      animation: fadeInFooter 1s ease 0.5s both;
+    }
+    @keyframes fadeInFooter {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+      text-align: left;
+      margin-bottom: 25px;
+    }
+    .footer-section { flex: 1 1 250px; }
+    .footer-section h3 { color: #ffb6c1; margin-bottom: 10px; }
+    .footer-section a { color: #fff8f0; text-decoration: none; }
+    .footer-section a:hover { opacity: 0.8; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.3); padding-top: 15px; font-size: 0.9rem; }
+
+    /* ---- Transition Overlay ---- */
+    #transition-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: #1935E1;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease;
+    }
+    #transition-overlay img {
+      width: 400px;
+      animation: pulse 1.2s infinite alternate;
+    }
+    @keyframes pulse {
+      from { transform: scale(1); opacity: 1; }
+      to { transform: scale(1.15); opacity: 0.8; }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .story-container { flex-direction: column; padding: 50px 5%; }
+      .story-images, .story-text { flex: 1 1 100%; }
+      .logo-right img { height: 40px; }
+      .nav-left { gap: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Transition Overlay -->
+  <div id="transition-overlay">
+    <img src="nail logo-01.png" alt="Nailistas Logo">
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-left">
+      <a href="Blog.html" data-transition>Blog</a>
+      <a href="Booking.html" data-transition>Dịch vụ</a>
+      <a href="Product.html" data-transition>Sản phẩm</a>
+      <a href="PersonalPage.html" data-transition>Trang cá nhân</a>
+    </div>
+    <div class="logo-right">
+      <img src="nail logo-01.png" alt="Logo Nailistas" onclick="goBack()">
+    </div>
+  </header>
+
+  <!-- Story Content -->
+  <section class="story-container">
+    <div class="story-images">
+      <img src="nailstore1.jpeg" alt="Không gian tiệm Nailistas">
+    </div>
+    <div class="story-text">
+      <h1>Câu chuyện thương hiệu</h1>
+      <p>
+        Nailistas được ra đời từ niềm đam mê cháy bỏng với nghệ thuật làm đẹp và khát vọng tôn vinh phong cách riêng của mỗi người phụ nữ. 
+        Ngay từ những ngày đầu, chúng tôi luôn tin rằng mỗi bộ móng không chỉ là một tác phẩm nghệ thuật nhỏ bé – 
+        mà còn là cách bạn thể hiện bản thân, cảm xúc và tâm trạng của chính mình.
+      </p>
+      <p>
+        Tại Nailistas, mọi chi tiết đều được chăm chút kỹ lưỡng: từ mùi hương tinh tế lan tỏa trong không gian, 
+        ánh sáng dịu nhẹ, cho đến từng lớp sơn được lựa chọn kỹ càng. 
+        Chúng tôi mong muốn khách hàng không chỉ đến để làm đẹp, mà còn để tận hưởng những phút giây thư giãn, 
+        yêu thương bản thân và tái tạo năng lượng tích cực.
+      </p>
+      <p>
+        Đội ngũ nghệ nhân của chúng tôi luôn cập nhật xu hướng mới nhất, kết hợp cùng sự sáng tạo cá nhân 
+        để mang đến cho bạn những thiết kế độc đáo – nơi phong cách và cảm xúc hòa quyện thành một.
+      </p>
+      <p>
+        Với Nailistas, hành trình làm đẹp không chỉ là bên ngoài, mà còn là sự tự tin và niềm vui tỏa ra từ bên trong.  
+        Đó là câu chuyện mà chúng tôi muốn cùng bạn viết tiếp – mỗi ngày, bằng một màu sơn mới.
+      </p>
+      <button class="back-btn" onclick="goBack()">QUAY LẠI</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>Hệ thống chi nhánh</h3>
+        <p>📍 12 Nguyễn Huệ, Quận 1, TP.HCM</p>
+        <p>📍 25 Lý Thường Kiệt, Hà Nội</p>
+        <p>📍 08 Bạch Đằng, Đà Nẵng</p>
+      </div>
+      <div class="footer-section">
+        <h3>Liên hệ</h3>
+        <p>📞 Hotline: <strong>0909 888 777</strong></p>
+        <p>📧 Email: <a href="mailto:contact@nailistas.vn">contact@nailistas.vn</a></p>
+      </div>
+      <div class="footer-section">
+        <h3>Chính sách</h3>
+        <p><a href="#">Chính sách bảo mật</a></p>
+        <p><a href="#">Điều khoản dịch vụ</a></p>
+      </div>
+    </div>
+    <p class="footer-bottom">&copy; Nailistas Việt Nam</p>
+  </footer>
+
+  <script>
+    // Hiệu ứng load trang
+    window.addEventListener('load', () => {
+      document.body.classList.add('fade-in');
+    });
+  
+    // Nút quay lại có hiệu ứng
+    function goBack() {
+      const overlay = document.getElementById('transition-overlay');
+      overlay.style.display = 'flex';
+      setTimeout(() => {
+        history.back();
+      }, 800);
+    }
+  
+    // Overlay khi nhấn link trên header
+    document.querySelectorAll('a[data-transition]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        const targetUrl = this.getAttribute('href');
+        if (!targetUrl || targetUrl.startsWith('#')) return; // Không chuyển cho anchor
+        e.preventDefault();
+        const overlay = document.getElementById('transition-overlay');
+        overlay.style.display = 'flex';          // Hiện overlay
+        overlay.style.opacity = '1';             // Reset opacity
+        setTimeout(() => {
+          window.location.href = targetUrl;      // Chuyển trang sau 800ms
+        }, 800);
+      });
+    });
+  
+    // Hiệu ứng khi reload / quay lại trang
+    window.addEventListener('pageshow', () => {
+      const overlay = document.getElementById('transition-overlay');
+      overlay.style.display = 'flex';
+      overlay.style.opacity = '1';
+      setTimeout(() => {
+        overlay.style.opacity = '0';
+        setTimeout(() => { 
+          overlay.style.display = 'none'; 
+          overlay.style.opacity = '1'; 
+        }, 800);
+      }, 400);
+    });
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,138 @@
+<html>
+    <head> 
+        <title>Huỳnh Thảo Nhi - K234111441</title>
+        <script type="text/javascript">
+            datasets=[
+                {
+                    ID:"P01",
+                    Name:"Coca",
+                    Quantity:2,
+                    Price:15,
+                    Photo:"Coca.png"
+                },
+                {
+                    ID:"P02",
+                    Name:"Pepsi",
+                    Quantity:3,
+                    Price:20,
+                    Photo:"Pepsi.png"
+                },
+                {
+                    ID:"P03",
+                    Name:"Sprite",
+                    Quantity:2,
+                    Price:22,
+                    Photo:"Sprite.png"
+                },
+                {
+                    ID:"P04",
+                    Name:"Sting",
+                    Quantity:4,
+                    Price:25,
+                    Photo:"Sting.png"
+                },
+                {
+                    ID:"P05",
+                    Name:"Lavie",
+                    Quantity:10,
+                    Price:5,
+                    Photo:"Lavie.png"
+                }
+            ]
+        </script>
+    </head>
+    <body>
+        <table border="1">
+            <caption>List of products:</caption>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Photo</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="product_tbody">
+
+            </tbody>
+        </table>
+        <script type="text/javascript">
+            product_tbody=document.getElementById("product_tbody")
+            //alert("ok")
+            for(i=0; i<datasets.length;i++)
+            {
+                item=datasets[i]
+                //step 1:create tr
+                row=document.createElement("tr")
+                td_id=document.createElement("td")
+                td_name=document.createElement("td")
+                td_quantity=document.createElement("td")
+                td_price=document.createElement("td")
+                td_photo=document.createElement("td")
+                td_action=document.createElement("td")
+                //step 2: assign value for item html element
+                td_id.innerText=item.ID
+                td_name.innerText=item.Name
+                td_quantity.innerText=item.Quantity
+                td_price.innerText=item.Price
+                img=document.createElement("img")
+                img.setAttribute("src","../images/"+item.Photo)
+                img.setAttribute("width","10")
+                img.setAttribute("height","10")
+                td_photo.appendChild(img)
+                
+                ic_detail=document.createElement("img")
+                ic_detail.setAttribute("src","../images/ic_detail.png")
+                ic_detail.setAttribute("title", "View detail")
+                ic_detail.setAttribute("style","cursor:pointer")
+                td_action.appendChild(ic_detail)
+                //storing product data for ic_detail
+                ic_detail.onclick=function()
+                {
+                    //we need to convert json object into json string:
+                    jsonstring=JSON.stringify(this.item_product)
+                    //use local storage for saving
+                    localStorage.setItem("selected_product",jsonstring)
+                    //open detail.html
+                    window.open("detail.html","_blank")
+                }
+
+                ic_edit=document.createElement("img")
+                ic_edit.setAttribute("src","../images/ic_edit.png")
+                ic_edit.setAttribute("title", "Edit Products")
+                ic_edit.setAttribute("style","cursor:pointer")
+                td_action.appendChild(ic_edit)
+
+                ic_delete=document.createElement("img")
+                ic_delete.setAttribute("src","../images/ic_delete.png")
+                ic_delete.setAttribute("title", "Delete Products")
+                ic_delete.setAttribute("style","cursor:pointer")
+                //create an Attribute for ic_delete
+                ic_delete.my_row_parent=row
+                //adding an event for ic_delete
+                ic_delete.onclick=function()
+                {
+                    if(confirm("muốn xoá hả"))
+                    {
+                        parent_row=this.my_row_parent
+                        product_tbody.removeChild(parent_row)
+                    }
+                }
+                td_action.appendChild(ic_delete)
+
+
+                //step 3: attach td(s) into tr(row)
+                row.appendChild(td_id)
+                row.appendChild(td_name)
+                row.appendChild(td_quantity)
+                row.appendChild(td_price)
+                row.appendChild(td_photo)
+                row.appendChild(td_action)
+                //step 4: 
+                product_tbody.appendChild(row)
+            }
+        </script>
+    </body>
+</html>

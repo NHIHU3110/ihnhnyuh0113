@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <title>Huỳnh Thảo Nhi - K234111441</title>
+    <style>
+      body { font-family: Arial, sans-serif; padding: 50px; }
+      table { border-collapse: collapse; margin-bottom: 20px; }
+      td { padding: 8px; }
+      input[type="number"] { width: 100px; padding: 5px; }
+      input[type="text"] { width: 250px; padding: 5px; }
+      button { padding: 8px 12px; margin-right: 5px; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+
+    <h2>Math Functions Calculator</h2>
+
+    <table border="1">
+      <tr>
+        <td>a:</td>
+        <td><input type="number" id="a" value="30"></td>
+      </tr>
+      <tr>
+        <td>b:</td>
+        <td><input type="number" id="b" value="45"></td>
+      </tr>
+      <tr>
+        <td>c:</td>
+        <td><input type="number" id="c" value="90"></td>
+      </tr>
+      <tr>
+        <td>Result:</td>
+        <td><input type="text" id="result" readonly></td>
+      </tr>
+    </table>
+      <button onclick="calculateMax()">MAX</button>
+      <button onclick="calculateMin()">MIN</button>
+      <button onclick="calculateSin()">sin(a)</button>
+      <button onclick="calculateCos()">cos(a)</button>
+      <button onclick="calculatePower()">a^b</button>
+    <script>
+      function getValues() {
+        const a = parseFloat(document.getElementById('a').value);
+        const b = parseFloat(document.getElementById('b').value);
+        const c = parseFloat(document.getElementById('c').value);
+        return {a, b, c};
+      }
+      function calculateMax() {
+        const {a, b, c} = getValues();
+        document.getElementById('result').value = Math.max(a, b, c);
+      }
+      function calculateMin() {
+        const {a, b, c} = getValues();
+        document.getElementById('result').value = Math.min(a, b, c);
+      }
+      function calculateSin() {
+        const {a} = getValues();
+        document.getElementById('result').value = Math.sin(a * Math.PI / 180);
+      }
+      function calculateCos() {
+        const {a} = getValues();
+        document.getElementById('result').value = Math.cos(a * Math.PI / 180);
+      }
+      function calculatePower() {
+        const {a, b} = getValues();
+        document.getElementById('result').value = Math.pow(a, b);
+      }
+    </script>
+  </body>
+</html>
