@@ -1,0 +1,75 @@
+<html>
+<head>
+  <title>Huỳnh Thảo Nhi - K234111441</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 50%;
+      margin: 30px auto;
+      font-family: Arial, sans-serif;
+    }
+    th {
+      background-color: pink;
+      text-align: center;
+      padding: 8px;
+      font-size: 18px;
+    }
+    td {
+      border: 1px solid #999;
+      padding: 8px;
+      font-size: 16px;
+    }
+    tr:hover {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+    <table id="studentTable">
+        <tr>
+        <th colspan="2">Student Information</th>
+        </tr>
+    </table>
+    <script>
+    const xmlString = `
+      <student>
+        <id>987456</id>
+        <name>Marie Curie</name>
+        <birthday>7/11/1867</birthday>
+        <gender>Woman</gender>
+      </student>
+    `;
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+    const id = xmlDoc.getElementsByTagName("id")[0].childNodes[0].nodeValue;
+    const name = xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+    const birthday = xmlDoc.getElementsByTagName("birthday")[0].childNodes[0].nodeValue;
+    const gender = xmlDoc.getElementsByTagName("gender")[0].childNodes[0].nodeValue;
+    const table = document.getElementById("studentTable");
+
+    function addRow(label, value) {
+        const row = document.createElement("tr");
+        const cell1 = document.createElement("td");
+        const cell2 = document.createElement("td");
+        cell1.textContent = label;
+        cell2.textContent = value;
+        row.appendChild(cell1);
+        row.appendChild(cell2);
+        row.addEventListener("mouseover", function() {
+            row.style.backgroundColor = "blue";
+            row.style.color = "white";
+        });
+
+        row.addEventListener("mouseout", function() {
+            row.style.backgroundColor = "white";
+            row.style.color = "black";
+        });
+        table.appendChild(row);
+        }
+    addRow("Student ID:", id);
+    addRow("Student Name:", name);
+    addRow("Birthday:", birthday);
+    addRow("Gender:", gender);
+    </script>
+</body>
+</html>
