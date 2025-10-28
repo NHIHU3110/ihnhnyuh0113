@@ -1,0 +1,123 @@
+<html>
+    <head>
+        <title>Huỳnh Thảo Nhi - K234111441</title>
+    </head>
+    <body>
+        <table border="1">
+            <caption>List of Books</caption>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Year</th>
+                    <th>Cover</th>
+                    <th>Action:</th>
+                </tr>
+            </thead>
+            <tbody id="book_tbody">
+                
+            </tbody>
+        </table>
+
+        <script type="text/javascript">
+            var xhr =new XMLHttpRequest();
+            xhr.open("GET","datasets/books_cover.xml",true);
+            xhr.send();
+            xhr.onreadystatechange=function()
+            {
+                if (xhr.readyState==4 && xhr.status==200)
+                {
+                    //handling when loading data successfully
+                    var xmlDoc = xhr.responseXML;
+                    var books=xmlDoc.getElementsByTagName("book")
+                    book_tbody=document.getElementById("book_tbody")
+                    for(i=0;i<books.length;i++)
+                    {
+                        book=books[i]
+
+                        title=book.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+                        author=book.getElementsByTagName("author")[0].childNodes[0].nodeValue;
+                        year=book.getElementsByTagName("year")[0].childNodes[0].nodeValue;
+                        cover=book.getElementsByTagName("cover")[0].childNodes[0].nodeValue;
+
+                        tr=document.createElement("tr")
+                        td_title=document.createElement("td")
+                        td_author=document.createElement("td")
+                        td_year=document.createElement("td")
+                        td_cover=document.createElement("td")
+                        td_action=document.createElement("td")
+
+                        td_title.innerText=title
+                        td_author.innerText=author
+                        td_year.innerText=year
+
+                        img_cover=document.createElement("img")
+                        img_cover.setAttribute("src","images/"+cover)
+                        img_cover.setAttribute("width","50")
+                        img_cover.setAttribute("height","100")
+                        td_cover.appendChild(img_cover)
+                        //td_cover.innerText="later"
+                        //td_action.innerText="later"
+                        img_detail=document.createElement("img")
+                        img_detail.setAttribute("src","images/ic_detail.png")
+                        td_action.appendChild(img_detail)
+                        img_detail.setAttribute("title","click here to view detail")
+                        img_detail.setAttribute("style","cursor:pointer")
+                        //save memory:
+                        json_book=
+                        {
+                            "title":title,
+                            "author":author,
+                            "year":year,
+                            "cover":cover
+                        }
+                        img_detail.selected_book=json_book
+                        img_detail.onclick=function()
+                        {
+                            stringJson=JSON.stringify(this.selected_book)
+                            localStorage.setItem("selected_book",stringJson)
+                            window.open("book_detail.html","_self")
+                        }
+
+
+
+                        img_edit=document.createElement("img")
+                        img_edit.setAttribute("src","images/ic_icon.png")
+                        td_action.appendChild(img_edit)
+
+                        img_delete=document.createElement("img")
+                        img_delete.setAttribute("src","images/ic_delete.png")
+                        img_delete.setAttribute("title","click here to remove this row")
+                        img_delete.setAttribute("style","cursor:pointer")
+                        //save memory:
+                        img_delete.parent_row=tr
+                        img_delete.onclick=function()
+                        {
+                            title=this.parent_row.childNodes[0].innerText
+                            if(confirm("ê muốn xóa ["+title+"] không?"))
+                            {
+                                book_tbody.removeChild(this.parent_row)        
+                            }
+                        }
+
+                        td_action.appendChild(img_delete)
+
+                        tr.appendChild(td_title)
+                        tr.appendChild(td_author)
+                        tr.appendChild(td_year)
+                        tr.appendChild(td_cover)
+                        tr.appendChild(td_action)
+                        book_tbody.appendChild(tr)
+                    }
+                    
+                }
+                else
+                {
+                    //handling when data can't be loaded
+                }
+            }
+
+        </script>
+
+    </body>
+</html>
