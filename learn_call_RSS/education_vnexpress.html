@@ -2,49 +2,114 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Tin mới nhất hôm nay - VnExpress</title>
+  <title>Tin Giáo dục hôm nay - VnExpress</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #fafafa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #fdfbfb, #ebedee);
+      color: #333;
     }
-    h2 {
+
+    header {
+      background: #b51a00;
+      color: white;
+      padding: 25px 10px;
       text-align: center;
-      color: #b51a00;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: 0.5px;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+      animation: fadeIn 0.8s ease;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 15px;
     }
+
     th, td {
-      border: 1px solid #ccc;
-      padding: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid #eee;
     }
+
     th {
-      background-color: #f2f2f2;
+      background-color: #fafafa;
+      font-size: 16px;
+      text-transform: uppercase;
+      color: #555;
     }
+
+    td {
+      font-size: 15px;
+    }
+
     a {
-      color: #007bff;
-      text-decoration: none;
+      color: #b51a00;
+      font-weight: 600;
+      transition: 0.3s;
     }
+
     a:hover {
+      color: #ff4d4d;
       text-decoration: underline;
     }
+
+    tbody tr:hover {
+      background: #fff5f3;
+      transition: 0.2s;
+    }
+
+    .no-news {
+      text-align: center;
+      color: #777;
+      font-style: italic;
+      padding: 20px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      text-align: center;
+      margin: 30px 0 15px;
+      color: #666;
+      font-size: 13px;
+    }
   </style>
+
   <script>
     async function getVnExpressRSS() {
-      const rssUrl = "https://vnexpress.net/rss/tin-moi-nhat.rss";
+      const rssUrl = "https://vnexpress.net/rss/giao-duc.rss";
       const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`);
       const data = await response.json();
 
-      // Parse XML từ RSS
       const parser = new DOMParser();
       const xml = parser.parseFromString(data.contents, "text/xml");
       const items = xml.querySelectorAll("item");
 
-      const today = new Date().toDateString();
+      // 🔹 Lấy ngày hiện tại theo giờ Việt Nam
+      const now = new Date();
+      const vnDate = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
+      const todayDay = vnDate.getDate();
+      const todayMonth = vnDate.getMonth();
+      const todayYear = vnDate.getFullYear();
+
       const tbody = document.getElementById("news_tbody");
       tbody.innerHTML = "";
 
@@ -55,8 +120,14 @@
         const link = item.querySelector("link").textContent;
         const pubDate = new Date(item.querySelector("pubDate").textContent);
 
-        // Chỉ hiển thị tin đăng trong ngày hôm nay
-        if (pubDate.toDateString() === today) {
+        // 🔸 Chuyển pubDate sang giờ VN
+        const pubVN = new Date(pubDate.toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
+
+        if (
+          pubVN.getDate() === todayDay &&
+          pubVN.getMonth() === todayMonth &&
+          pubVN.getFullYear() === todayYear
+        ) {
           found = true;
           const tr = document.createElement("tr");
 
@@ -64,7 +135,7 @@
           const td_time = document.createElement("td");
 
           td_title.innerHTML = `<a href="${link}" target="_blank">${title}</a>`;
-          td_time.textContent = pubDate.toLocaleTimeString();
+          td_time.textContent = pubVN.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
 
           tr.appendChild(td_title);
           tr.appendChild(td_time);
@@ -73,23 +144,34 @@
       });
 
       if (!found) {
-        tbody.innerHTML = `<tr><td colspan="2" style="text-align:center;">Không có tin nào được đăng hôm nay.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="2" class="no-news">Không có tin Giáo dục nào được đăng trong ngày hôm nay.</td></tr>`;
       }
     }
   </script>
 </head>
 <body onload="getVnExpressRSS()">
-  <h2>Tin mới nhất hôm nay - VnExpress</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Tiêu đề</th>
-        <th>Giờ đăng</th>
-      </tr>
-    </thead>
-    <tbody id="news_tbody">
-      <tr><td colspan="2" style="text-align:center;">Đang tải dữ liệu...</td></tr>
-    </tbody>
-  </table>
+
+  <header>
+    <h1>Tin Giáo dục hôm nay - VnExpress</h1>
+  </header>
+
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th>Tiêu đề</th>
+          <th>Giờ đăng</th>
+        </tr>
+      </thead>
+      <tbody id="news_tbody">
+        <tr><td colspan="2" class="no-news">Đang tải dữ liệu...</td></tr>
+      </tbody>
+    </table>
+  </main>
+
+  <footer>
+    Dữ liệu được cập nhật từ RSS chính thức của VnExpress | Thiết kế bởi Nhi 🌸
+  </footer>
+
 </body>
 </html>

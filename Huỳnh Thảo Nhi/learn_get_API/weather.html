@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Dự báo thời tiết Tuổi Trẻ</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial; background: #f4f6f9; margin: 30px; }
+    h2 { text-align: center; color: #c00; margin-bottom: 20px; }
+    select, button {
+      font-size: 16px; padding: 8px 10px; margin: 10px 5px;
+    }
+    #result {
+      margin-top: 25px; background: #fff; padding: 20px;
+      border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-width: 450px; margin-left: auto; margin-right: auto;
+      line-height: 1.6;
+    }
+    .temp { font-size: 48px; font-weight: bold; color: #e63946; }
+    .desc { font-size: 22px; color: #333; margin-top: 8px; }
+    .feels, .humid, .uv, .wind, .sun { color: #555; font-size: 15px; }
+    .label { font-weight: 600; color: #111; }
+  </style>
+</head>
+<body>
+  <h2>Dự báo thời tiết Tuổi Trẻ</h2>
+
+  <label for="province">Chọn tỉnh:</label>
+  <select id="province">
+    <option value="">--Chọn tỉnh--</option>
+    <option value="2347719">An Giang</option>
+    <option value="20070078">Bình Dương</option>
+    <option value="20070086">Bình Phước</option>
+    <option value="2347731">Bình Thuận</option>
+    <option value="2347730">Bình Định</option>
+    <option value="20070081">Bạc Liêu</option>
+    <option value="20070087">Bắc Giang</option>
+    <option value="20070084">Bắc Kạn</option>
+    <option value="20070088">Bắc Ninh</option>
+    <option value="2347703">Bến Tre</option>
+    <option value="2347704">Cao Bằng</option>
+    <option value="20070082">Cà Mau</option>
+    <option value="2347732">Cần Thơ</option>
+    <option value="28301718">Điện Biên</option>
+    <option value="20070085">Đà Nẵng</option>
+    <option value="1252375">Đà Lạt</option>
+    <option value="2347720">Đắk Lắk</option>
+    <option value="28301719">Đắk Nông</option>
+    <option value="2347721">Đồng Nai</option>
+    <option value="2347722">Đồng Tháp</option>
+    <option value="2347733">Gia Lai</option>
+    <option value="2347727">Hà Nội</option>
+    <option value="2347728">TP. Hồ Chí Minh</option>
+    <option value="2347734">Hà Giang</option>
+    <option value="2347741">Hà Nam</option>
+    <option value="2347736">Hà Tĩnh</option>
+    <option value="2347737">Hòa Bình</option>
+    <option value="20070079">Hưng Yên</option>
+    <option value="20070080">Hải Dương</option>
+    <option value="2347707">Hải Phòng</option>
+    <option value="28301720">Hậu Giang</option>
+    <option value="2347738">Khánh Hòa</option>
+    <option value="2347723">Kiên Giang</option>
+    <option value="20070076">Kon Tum</option>
+    <option value="2347708">Lai Châu</option>
+    <option value="2347710">Long An</option>
+    <option value="2347740">Lào Cai</option>
+    <option value="2347709">Lâm Đồng</option>
+    <option value="2347718">Lạng Sơn</option>
+    <option value="20070089">Nam Định</option>
+    <option value="2347742">Nghệ An</option>
+    <option value="2347743">Ninh Bình</option>
+    <option value="2347744">Ninh Thuận</option>
+    <option value="20070091">Phú Thọ</option>
+    <option value="2347745">Phú Yên</option>
+    <option value="2347746">Quảng Bình</option>
+    <option value="2347711">Quảng Nam</option>
+    <option value="20070077">Quảng Ngãi</option>
+    <option value="2347712">Quảng Ninh</option>
+    <option value="2347747">Quảng Trị</option>
+    <option value="2347748">Sóc Trăng</option>
+    <option value="2347713">Sơn La</option>
+    <option value="2347715">Thanh Hóa</option>
+    <option value="2347716">Thái Bình</option>
+    <option value="20070083">Thái Nguyên</option>
+    <option value="2347749">Thừa Thiên Huế</option>
+    <option value="2347717">Tiền Giang</option>
+    <option value="2347750">Trà Vinh</option>
+    <option value="2347751">Tuyên Quang</option>
+    <option value="2347714">Tây Ninh</option>
+    <option value="2347752">Vĩnh Long</option>
+    <option value="20070090">Vĩnh Phúc</option>
+    <option value="2347729">Vũng Tàu</option>
+    <option value="2347753">Yên Bái</option>
+  </select>
+  <button id="btn">Xem dự báo</button>
+
+  <div id="result"></div>
+
+  <script>
+    document.getElementById('btn').addEventListener('click', async () => {
+      const id = document.getElementById('province').value;
+      const resultDiv = document.getElementById('result');
+      if (!id) {
+        resultDiv.innerHTML = "<b>Vui lòng chọn tỉnh!</b>";
+        return;
+      }
+
+      resultDiv.innerHTML = "Đang tải dữ liệu...";
+
+      try {
+        const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://utils3.cnnd.vn/ajax/weatherinfo/${id}.htm`)}`;
+        const response = await fetch(apiUrl);
+        const wrapped = await response.json();
+        const data = JSON.parse(wrapped.contents);
+        const info = data.Data.data.datainfo;
+
+        resultDiv.innerHTML = `
+          <div class="temp">${info.temperature}°${info.degree}</div>
+          <div class="desc">${info.status}</div>
+          <div class="feels"><span class="label">Cảm giác như:</span> ${info.feels_like}°${info.degree}</div>
+          <div class="humid"><span class="label">Độ ẩm:</span> ${info.humidity}</div>
+          <div class="uv"><span class="label">Chỉ số UV:</span> ${info.UV_index.index} (${info.UV_index.status})</div>
+          <div class="wind"><span class="label">Gió:</span> ${info.wind.index} ${info.wind.unit} (${info.windDirection})</div>
+          <div class="sun"><span class="label">Mặt trời mọc/lặn:</span> ${info.sunrise} / ${info.sunset}</div>
+          <div class="air"><span class="label">Chất lượng không khí:</span> ${info.air.status} (AQI ${info.air.aqi})</div>
+        `;
+      } catch (err) {
+        console.error(err);
+        resultDiv.innerHTML = "Không thể tải dữ liệu thời tiết.";
+      }
+    });
+  </script>
+</body>
+</html>
