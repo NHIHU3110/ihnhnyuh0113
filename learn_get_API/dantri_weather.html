@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather API</title>
+  <script type="text/javascript">
+    function get_weather_api() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("get", "https://webapi.dantri.com.vn/misc", true);
+      xhr.send();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          var string_json = xhr.responseText;
+          document.getElementById("my_div").innerText = string_json;
+
+          // Convert string to object
+          var object_json = JSON.parse(string_json);
+          var weathers = object_json.weathers;
+
+          display_weather(weathers);
+        }
+      };
+    }
+
+    function display_weather(weathers) {
+      var tbody = document.getElementById("weather_tbody");
+      tbody.innerHTML = ""; // clear old rows
+
+      for (var i = 0; i < weathers.length; i++) {
+        var weather = weathers[i];
+        var tr = document.createElement("tr");
+
+        var td_city = document.createElement("td");
+        var td_temp = document.createElement("td");
+        var td_status = document.createElement("td");
+        var td_icon = document.createElement("td");
+
+        td_city.innerText = weather.name;
+        td_temp.innerText = weather.temperature + "°C";
+        td_status.innerText = weather.clouds;
+
+        // Add icon image
+        var icon_url = "https://openweathermap.org/img/wn/" + weather.icon + "@2x.png";
+        var img_icon = document.createElement("img");
+        img_icon.setAttribute("src", icon_url);
+        img_icon.setAttribute("width", "40");
+        td_icon.appendChild(img_icon);
+
+        tr.appendChild(td_city);
+        tr.appendChild(td_temp);
+        tr.appendChild(td_status);
+        tr.appendChild(td_icon);
+
+        tbody.appendChild(tr);
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="my_div" style="height:150px; overflow-y:scroll; background-color:antiquewhite;"></div>
+
+  <table border="1" style="margin-top:10px;">
+    <caption>Weather Information</caption>
+    <thead>
+      <tr>
+        <th>City/Province</th>
+        <th>Temperature</th>
+        <th>Status</th>
+        <th>Icon</th>
+      </tr>
+    </thead>
+    <tbody id="weather_tbody"></tbody>
+  </table>
+
+  <script type="text/javascript">
+    get_weather_api();
+  </script>
+</body>
+</html>
