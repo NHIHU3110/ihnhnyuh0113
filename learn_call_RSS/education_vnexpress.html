@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Tin mới nhất hôm nay - VnExpress</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #fafafa;
+    }
+    h2 {
+      text-align: center;
+      color: #b51a00;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script>
+    async function getVnExpressRSS() {
+      const rssUrl = "https://vnexpress.net/rss/tin-moi-nhat.rss";
+      const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`);
+      const data = await response.json();
+
+      // Parse XML từ RSS
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(data.contents, "text/xml");
+      const items = xml.querySelectorAll("item");
+
+      const today = new Date().toDateString();
+      const tbody = document.getElementById("news_tbody");
+      tbody.innerHTML = "";
+
+      let found = false;
+
+      items.forEach(item => {
+        const title = item.querySelector("title").textContent;
+        const link = item.querySelector("link").textContent;
+        const pubDate = new Date(item.querySelector("pubDate").textContent);
+
+        // Chỉ hiển thị tin đăng trong ngày hôm nay
+        if (pubDate.toDateString() === today) {
+          found = true;
+          const tr = document.createElement("tr");
+
+          const td_title = document.createElement("td");
+          const td_time = document.createElement("td");
+
+          td_title.innerHTML = `<a href="${link}" target="_blank">${title}</a>`;
+          td_time.textContent = pubDate.toLocaleTimeString();
+
+          tr.appendChild(td_title);
+          tr.appendChild(td_time);
+          tbody.appendChild(tr);
+        }
+      });
+
+      if (!found) {
+        tbody.innerHTML = `<tr><td colspan="2" style="text-align:center;">Không có tin nào được đăng hôm nay.</td></tr>`;
+      }
+    }
+  </script>
+</head>
+<body onload="getVnExpressRSS()">
+  <h2>Tin mới nhất hôm nay - VnExpress</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Tiêu đề</th>
+        <th>Giờ đăng</th>
+      </tr>
+    </thead>
+    <tbody id="news_tbody">
+      <tr><td colspan="2" style="text-align:center;">Đang tải dữ liệu...</td></tr>
+    </tbody>
+  </table>
+</body>
+</html>
