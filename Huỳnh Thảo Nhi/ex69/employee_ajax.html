@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AJAX - Employee XML</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background-color: #f4f6f9;
+      margin: 40px;
+    }
+    h2 {
+      text-align: center;
+      color: #0077cc;
+    }
+    select {
+      font-size: 16px;
+      padding: 5px 10px;
+      margin: 15px auto;
+      display: block;
+    }
+    table {
+      width: 60%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #0077cc;
+      color: white;
+    }
+    caption {
+      caption-side: top;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #0077cc;
+    }
+  </style>
+</head>
+<body>
+  <h2>Employee List (Read from XML using AJAX)</h2>
+
+  <label for="titleSelect" style="font-size:18px;">Title:</label>
+  <select id="titleSelect" onchange="filterEmployees()">
+    <option value="">-- Select Title --</option>
+  </select>
+
+  <table id="employeeTable">
+    <caption>Employee Information</caption>
+    <thead>
+      <tr>
+        <th>Employee ID</th>
+        <th>Employee Name</th>
+        <th>Phone</th>
+      </tr>
+    </thead>
+    <tbody id="tbody_emp"></tbody>
+  </table>
+
+  <script>
+    var xmlDoc; // global XML data
+
+    // Step 1: Load XML file using AJAX
+    function loadXML() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "XMLFile.xml", true); // file name
+      xhr.send();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          xmlDoc = xhr.responseXML;
+          fillTitles(xmlDoc);
+        }
+      };
+    }
+
+    // Step 2: Fill unique titles into dropdown
+    function fillTitles(xml) {
+      var employees = xml.getElementsByTagName("employee");
+      var select = document.getElementById("titleSelect");
+      var titles = [];
+
+      for (var i = 0; i < employees.length; i++) {
+        var title = employees[i].getAttribute("title");
+        if (!titles.includes(title)) {
+          titles.push(title);
+        }
+      }
+
+      titles.sort();
+      for (var j = 0; j < titles.length; j++) {
+        var opt = document.createElement("option");
+        opt.value = titles[j];
+        opt.text = titles[j];
+        select.appendChild(opt);
+      }
+    }
+
+    // Step 3: Display employees with selected title
+    function filterEmployees() {
+      var titleSelected = document.getElementById("titleSelect").value;
+      var tbody = document.getElementById("tbody_emp");
+      tbody.innerHTML = "";
+
+      if (titleSelected === "") return;
+
+      var employees = xmlDoc.getElementsByTagName("employee");
+      for (var i = 0; i < employees.length; i++) {
+        var emp = employees[i];
+        var title = emp.getAttribute("title");
+
+        if (title === titleSelected) {
+          var id = emp.getAttribute("id");
+          var name = emp.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+          var phone = emp.getElementsByTagName("phone")[0].childNodes[0].nodeValue;
+
+          var tr = document.createElement("tr");
+          tr.innerHTML = "<td>" + id + "</td><td>" + name + "</td><td>" + phone + "</td>";
+          tbody.appendChild(tr);
+        }
+      }
+    }
+
+    // Step 4: Load XML automatically when page opens
+    window.onload = loadXML;
+  </script>
+</body>
+</html>

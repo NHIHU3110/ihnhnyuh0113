@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CD Catalog - AJAX XML Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 30px;
+    }
+    table {
+      width: 90%;
+      margin: auto;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #0077cc;
+      color: white;
+    }
+    caption {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #0077cc;
+    }
+    #btnLoad {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #btnLoad:hover {
+      background-color: #005fa3;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">AJAX - Display CD Catalog (XML)</h2>
+  <button id="btnLoad" onclick="loadXML()">Get my CD collection</button>
+
+  <table id="cdTable">
+    <caption>CD Catalog</caption>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Country</th>
+        <th>Company</th>
+        <th>Price</th>
+        <th>Year</th>
+      </tr>
+    </thead>
+    <tbody id="cd_tbody"></tbody>
+  </table>
+
+  <script>
+    function loadXML() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "cd_catalog.xml", true); // đảm bảo cd_catalog.xml nằm cùng thư mục
+      xhr.send();
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          var xmlDoc = xhr.responseXML;
+          displayTable(xmlDoc);
+        }
+      };
+    }
+
+    function displayTable(xmlDoc) {
+      var cds = xmlDoc.getElementsByTagName("CD");
+      var tbody = document.getElementById("cd_tbody");
+      tbody.innerHTML = ""; // clear old rows
+
+      for (var i = 0; i < cds.length; i++) {
+        var tr = document.createElement("tr");
+
+        var title = cds[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue;
+        var artist = cds[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue;
+        var country = cds[i].getElementsByTagName("COUNTRY")[0].childNodes[0].nodeValue;
+        var company = cds[i].getElementsByTagName("COMPANY")[0].childNodes[0].nodeValue;
+        var price = cds[i].getElementsByTagName("PRICE")[0].childNodes[0].nodeValue;
+        var year = cds[i].getElementsByTagName("YEAR")[0].childNodes[0].nodeValue;
+
+        tr.innerHTML = `
+          <td>${title}</td>
+          <td>${artist}</td>
+          <td>${country}</td>
+          <td>${company}</td>
+          <td>${price}</td>
+          <td>${year}</td>
+        `;
+
+        tbody.appendChild(tr);
+      }
+    }
+  </script>
+</body>
+</html>

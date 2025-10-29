@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi" ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercise 75 - JSON Array & AngularJS</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    h2 {
+      color: #0077cc;
+      text-align: center;
+    }
+    table {
+      border-collapse: collapse;
+      width: 60%;
+      margin: 10px auto;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      text-align: center;
+      padding: 8px;
+    }
+    th {
+      background-color: #f3e74b;
+    }
+    input {
+      padding: 5px;
+      margin: 5px;
+      width: 200px;
+    }
+    label {
+      display: inline-block;
+      width: 80px;
+    }
+    .container {
+      width: 60%;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      padding: 15px;
+    }
+  </style>
+</head>
+<body ng-controller="myCtrl">
+
+  <h2>Exercise 75 - Show Subject Book (JsonArray)</h2>
+
+  <div class="container">
+    <div>
+      <label>Nhập Mã:</label>
+      <input type="text" ng-model="sinhvien.Ma"><br>
+      <label>Nhập Tên:</label>
+      <input type="text" ng-model="sinhvien.Ten"><br>
+    </div>
+
+    <p><b>Mã và Tên:</b> {{sinhvien.Ma}} - {{sinhvien.Ten}}</p>
+
+    <h3>Danh sách Sách đang mượn:</h3>
+    <table>
+      <tr>
+        <th>Mã Sách</th>
+        <th>Tên Sách</th>
+        <th>Số Trang</th>
+      </tr>
+      <tr ng-repeat="s in sinhvien.Sachs | orderBy:'Trang'">
+        <td>{{s.Ma}}</td>
+        <td>{{s.Ten}}</td>
+        <td>{{s.Trang}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <script>
+    var app = angular.module("myApp", []);
+    app.controller("myCtrl", function($scope) {
+      $scope.sinhvien = {
+        Ma: "1",
+        Ten: "Trần Duy Thành",
+        Sachs: [
+          {Ma:'S1', Ten:'Hồng Lâu Mộng', Trang:100},
+          {Ma:'S2', Ten:'Tây Du Ký', Trang:200},
+          {Ma:'S3', Ten:'Tam Quốc Chí', Trang:90},
+          {Ma:'S4', Ten:'Bích Huyết Kiếm', Trang:70},
+          {Ma:'S5', Ten:'Anh Hùng Xạ Điêu', Trang:1000},
+          {Ma:'S6', Ten:'Thần Điêu Đại Hiệp', Trang:500},
+          {Ma:'S7', Ten:'Tần Thủy Hoàng', Trang:600},
+          {Ma:'S8', Ten:'Chiến Quốc', Trang:400},
+          {Ma:'S9', Ten:'Hán Sở Tranh Hùng', Trang:300},
+          {Ma:'S10', Ten:'Bảo Đao', Trang:700}
+        ]
+      };
+
+      $scope.ChiTiet = function() {
+        let sv = $scope.sinhvien;
+        return sv.Ma + " - " + sv.Ten;
+      };
+    });
+  </script>
+
+</body>
+</html>

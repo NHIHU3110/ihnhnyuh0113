@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huỳnh Thảo Nhi - K234111441</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        tr:hover {
+            background-color: yellow;
+        }
+        tr {
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <table id="studentTable" border="1">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Student ID</th>
+                <th onclick="sortTable(1)">Student Name</th>
+                <th onclick="sortTable(2)">Birthday</th>
+                <th onclick="sortTable(3)">Gender</th>
+            </tr>
+        </thead>
+        <tbody id="studentTableBody">
+            <!-- Data will be populated here -->
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+        var xmlString = `
+            <students>
+                <student>
+                    <id>987456</id>
+                    <name>Marie Curie</name>
+                    <birthday>7/11/1867</birthday>
+                    <gender>Woman</gender>
+                </student>
+                <student>
+                    <id>987561</id>
+                    <name>Einstein</name>
+                    <birthday>14/3/1879</birthday>
+                    <gender>Man</gender>
+                </student>
+                <student>
+                    <id>985467</id>
+                    <name>Leó Szilárd</name>
+                    <birthday>11/2/1898</birthday>
+                    <gender>Man</gender>
+                </student>
+            </students>`;
+
+        var parser = new DOMParser();
+        var xmlDoc = parser.parseFromString(xmlString, "text/xml");
+
+        var students = xmlDoc.getElementsByTagName("student");
+
+        // Populate the table with student data
+        var tableBody = document.getElementById("studentTableBody");
+
+        for (var i = 0; i < students.length; i++) {
+            var id = students[i].getElementsByTagName("id")[0].childNodes[0].nodeValue;
+            var name = students[i].getElementsByTagName("name")[0].childNodes[0].nodeValue;
+            var birthday = students[i].getElementsByTagName("birthday")[0].childNodes[0].nodeValue;
+            var gender = students[i].getElementsByTagName("gender")[0].childNodes[0].nodeValue;
+
+            var row = document.createElement("tr");
+
+            row.addEventListener("click", function() {
+                var studentId = this.cells[0].innerText;
+                var studentName = this.cells[1].innerText;
+                var studentBirthday = this.cells[2].innerText;
+                var studentGender = this.cells[3].innerText;
+                alert("Student Info:\nID: " + studentId + "\nName: " + studentName + "\nBirthday: " + studentBirthday + "\nGender: " + studentGender);
+            });
+
+            row.addEventListener("mouseover", function() {
+                this.style.backgroundColor = "yellow";
+            });
+
+            row.addEventListener("mouseout", function() {
+                this.style.backgroundColor = "white";
+            });
+
+            row.innerHTML = `
+                <td>${id}</td>
+                <td>${name}</td>
+                <td>${birthday}</td>
+                <td>${gender}</td>
+            `;
+            tableBody.appendChild(row);
+        }
+
+        // Sorting function
+        function sortTable(columnIndex) {
+            var rows = Array.from(tableBody.rows);
+            var sortedRows = rows.sort(function(rowA, rowB) {
+                var cellA = rowA.cells[columnIndex].innerText;
+                var cellB = rowB.cells[columnIndex].innerText;
+
+                if (columnIndex === 2) { // If sorting by birthday
+                    cellA = new Date(cellA.split("/").reverse().join("/"));
+                    cellB = new Date(cellB.split("/").reverse().join("/"));
+                }
+
+                if (cellA < cellB) return -1;
+                if (cellA > cellB) return 1;
+                return 0;
+            });
+
+            // Clear the table and append the sorted rows
+            tableBody.innerHTML = "";
+            sortedRows.forEach(function(row) {
+                tableBody.appendChild(row);
+            });
+        }
+    </script>
+
+</body>
+</html>

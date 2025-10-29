@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Scores - JSON & AJAX</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 40px;
+    }
+    h2 {
+      text-align: center;
+      color: #0077cc;
+    }
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #ffeb3b;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .pass {
+      color: green;
+      font-weight: bold;
+    }
+    .fail {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>BẢNG ĐIỂM SINH VIÊN (JSON + AJAX)</h2>
+  <table id="tblStudents">
+    <thead>
+      <tr>
+        <th>Mã Sinh Viên</th>
+        <th>Tên Sinh Viên</th>
+        <th>Toán</th>
+        <th>Lý</th>
+        <th>Hóa</th>
+        <th>Điểm Trung Bình</th>
+        <th>Kết Quả</th>
+      </tr>
+    </thead>
+    <tbody id="tbodyData"></tbody>
+  </table>
+
+  <script>
+    // Bước 1: Tải dữ liệu JSON bằng AJAX
+    function loadJSON() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "database-students.json", true);
+      xhr.send();
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var data = JSON.parse(xhr.responseText);
+          displayData(data);
+        }
+      };
+    }
+
+    // Bước 2: Hiển thị dữ liệu ra bảng
+    function displayData(students) {
+      var tbody = document.getElementById("tbodyData");
+      tbody.innerHTML = "";
+
+      students.forEach(function(st) {
+        var toan = st.MonHocs.find(m => m.TenMH === "Toán").Diem;
+        var ly = st.MonHocs.find(m => m.TenMH === "Lý").Diem;
+        var hoa = st.MonHocs.find(m => m.TenMH === "Hóa").Diem;
+        var dtb = ((toan + ly + hoa) / 3).toFixed(2);
+        var ketqua = dtb >= 5 ? "Đậu" : "Rớt";
+        var colorClass = dtb >= 5 ? "pass" : "fail";
+
+        var row = `
+          <tr>
+            <td>${st.Ma}</td>
+            <td>${st.Ten}</td>
+            <td>${toan}</td>
+            <td>${ly}</td>
+            <td>${hoa}</td>
+            <td>${dtb}</td>
+            <td class="${colorClass}">${ketqua}</td>
+          </tr>
+        `;
+        tbody.innerHTML += row;
+      });
+    }
+
+    // Gọi hàm khi trang tải
+    window.onload = loadJSON;
+  </script>
+</body>
+</html>
