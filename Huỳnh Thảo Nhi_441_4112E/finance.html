@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Stock Information - Huỳnh Thảo Nhi</title>
+        <style>
+            body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            }
+            table {
+            border-collapse: collapse;
+            width: 60%;
+            margin-top: 15px;
+            }
+            th, td {
+            border: 1px solid #666;
+            padding: 8px;
+            text-align: center;
+            }
+            th {
+            background-color: #ddd;
+            }
+            caption {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 18px;
+            }
+        </style>
+
+        <script type="text/javascript">
+            function load_stock_info() 
+            {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "https://gadgets.dantri.com.vn/api/finance/stocks", true);
+                xhr.send();
+
+                xhr.onreadystatechange = function() 
+                {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                    var string_json = xhr.responseText;
+                    var object_json = JSON.parse(string_json);
+                    var stock_list = object_json;  
+                    var tbody = document.getElementById("stock_tbody");
+                    tbody.innerHTML = "";
+
+                    for (var i = 0; i < stock_list.length; i++) {
+                        var stock = stock_list[i];
+
+                        var tr = document.createElement("tr");
+
+                        var td_code = document.createElement("td");
+                        var td_price = document.createElement("td");
+                        var td_updated = document.createElement("td");
+
+                        td_code.innerText = stock.code;
+                        td_price.innerText = stock.price;
+                        td_updated.innerText = stock.sourceUpdatedAt;
+
+                        tr.appendChild(td_code);
+                        tr.appendChild(td_price);
+                        tr.appendChild(td_updated);
+
+                        tbody.appendChild(tr);
+                    }
+                    }
+                };
+            }
+        </script>
+    </head>
+    <body>
+        <h2>Stock Information</h2>
+        <table>
+            <caption>Stock Data from Dantri API</caption>
+            <thead>
+            <tr>
+                <th>Code</th>
+                <th>Price</th>
+                <th>Source Updated At</th>
+            </tr>
+            </thead>
+            <tbody id="stock_tbody">
+
+            </tbody>
+        </table>
+        <script type="text/javascript">
+            load_stock_info()
+        </script>
+    </body>
+</html>

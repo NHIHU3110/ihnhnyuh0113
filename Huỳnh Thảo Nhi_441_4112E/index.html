@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>Huỳnh Thảo Nhi - K234111441</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* internal style example for demo Q5 */
+    .internal-demo{padding:8px;border:1px dashed #ccc;margin-top:8px;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h2 style="margin:0;color:var(--primary)">Kiwi Company</h2>
+      </div>
+      <div class="nav">
+        <button onclick="renderAbout()">About me</button>
+        <div class="submenu"><button>Form & Javascript</button>
+          <div class="submenu-list">
+            <button onclick="loadBooks()">Books</button>
+            <button onclick="renderCustomers()">Customers</button>
+          </div>
+        </div>
+        <button onclick="renderStyle()">Style</button>
+        <div class="submenu"><button>API and External</button>
+          <div class="submenu-list">
+            <button onclick="loadWeatherAPI()">Weather API</button>
+            <button onclick="loadRSS()">RSS</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <aside class="left">
+      
+        <!-- Stock Information Widget -->
+        <div class="stock-widget">
+          <h5>Stock Information</h5>
+          <table id="stock_table">
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Price</th>
+                <th>Updated</th>
+              </tr>
+            </thead>
+            <tbody id="stock_tbody">
+              <tr><td colspan="3" style="text-align:center;color:#777;">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      
+
+      </aside>
+      
+
+    <main>
+      <!-- Sections (C) -->
+      <div id="about" class="section"></div>
+
+      <div id="books" class="section">
+        <div id="books_area"></div>
+      </div>
+
+      <div id="customers" class="section">
+        <div id="customers_area"></div>
+      </div>
+
+      <div id="style" class="section">
+        <div id="style_area"></div>
+        <div class="internal-demo"><strong>Internal style demo</strong>: this box is styled via &lt;style&gt; in head.</div>
+        <div style="margin-top:8px;"><strong>External style demo</strong>: global styles come from <code>style.css</code>.</div>
+      </div>
+
+      <div id="weather" class="section">
+        <div id="weather_area"></div>
+      </div>
+
+      <div id="rss" class="section">
+        <div id="rss_area"></div>
+      </div>
+
+      <!-- Login small demo -->
+      <div style="margin-top:16px;border-top:1px dashed #eee;padding-top:10px;">
+        <h4>Login Demo (Q7)</h4>
+        <form onsubmit="doLogin(event)">
+          <input id="login_user" placeholder="username" style="padding:6px;border-radius:6px;border:1px solid #ccc;">
+          <input id="login_pass" type="password" placeholder="password" style="padding:6px;border-radius:6px;border:1px solid #ccc;">
+          <button class="btn" type="submit">Login</button>
+        </form>
+      </div>
+    </main>
+        <!-- Marquee Declaration -->
+        <div class="marquee-box" style="margin-top:20px;">
+          <marquee direction="down" behavior="scroll" scrollamount="8" loop="-1">
+            <span>
+              I declare that all of these solutions are my own and not copied from anyone in this class ✨
+            </span>
+          </marquee>
+        </div>
+      </aside>
+      
+      <footer style="
+    text-align:center;
+    background:linear-gradient(135deg, #f6faff, #e0f7ff);
+    padding:20px;
+    border-top:2px solid #cce3f0;
+    font-family:'Segoe UI', Roboto, Arial, sans-serif;">
+  </div>
+
+  <div style="
+      background:#ffffff;
+      display:inline-block;
+      padding:16px 24px;
+      border-radius:14px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.08);
+      text-align:center;
+      transition:all 0.3s ease;">
+    <p id="my_p" style="
+        font-size:16px;
+        background:#f0faff;
+        border-left:4px solid #00b4d8;
+        padding:10px 16px;
+        border-radius:8px;
+        display:inline-block;
+        box-shadow:inset 0 1px 3px rgba(0,0,0,0.05);">
+      <!-- Nội dung thời gian sẽ hiển thị tại đây -->
+    </p>
+  </div>
+</footer>
+
+<script>
+    function updateDateTime() {
+      const studentName = "Huỳnh Thảo Nhi";
+      const now = new Date().toLocaleString("vi-VN");
+      const p = document.getElementById("my_p");
+      if (p) {
+        p.textContent = "Designed by student " + studentName + " — Today is " + now;
+      }
+    }
+  
+    function startClock() {
+      updateDateTime();
+      setInterval(updateDateTime, 1000);
+    }
+  
+    // Gọi sau khi toàn trang đã tải
+    window.addEventListener("load", startClock);
+  </script>
+  
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
