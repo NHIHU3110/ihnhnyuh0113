@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+  <product id="SP1">
+    <name>Iphone 16 Pro</name>
+    <price>32000000</price>
+    <desc>Điện thoại cao cấp của Apple, chip A18, camera Pro.</desc>
+  </product>
+  <product id="SP2">
+    <name>MacBook Air M3</name>
+    <price>28000000</price>
+    <desc>Laptop Apple chip M3, hiệu năng mạnh, pin 18 giờ.</desc>
+  </product>
+  <product id="SP3">
+    <name>AirPods Pro 2</name>
+    <price>5500000</price>
+    <desc>Tai nghe chống ồn chủ động, hỗ trợ Spatial Audio.</desc>
+  </product>
+  <product id="SP4">
+    <name>Apple Watch S9</name>
+    <price>10000000</price>
+    <desc>Đồng hồ thông minh theo dõi sức khỏe, chip S9 mới.</desc>
+  </product>
+</products>

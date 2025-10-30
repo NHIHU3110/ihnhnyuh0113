@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Giỏ hàng XML - Xem, Thêm, Sửa</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    h2 { color: darkblue; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+    th, td { border: 1px solid #888; padding: 8px; text-align: center; }
+    th { background-color: #eee; }
+    button { padding: 6px 12px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background-color: #0056b3; }
+    #formBox, #detailBox {
+      display: none; background: #fff; border: 2px solid #007bff; border-radius: 10px;
+      padding: 15px; width: 400px; position: fixed; top: 20%; left: 50%; transform: translateX(-50%);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    #overlay {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+    input[type='text'], input[type='number'], textarea {
+      width: 100%; padding: 5px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h2>📦 Danh sách sản phẩm (Đọc từ XML)</h2>
+  <table id="productTable">
+    <tr><th>Mã</th><th>Tên sản phẩm</th><th>Giá</th><th>Chi tiết</th><th>Sửa</th><th>Thêm vào giỏ</th></tr>
+  </table>
+
+  <h2>🛍 Giỏ hàng</h2>
+  <table id="cartTable">
+    <tr><th>Mã</th><th>Tên sản phẩm</th><th>Giá</th><th>Số lượng</th><th>Thành tiền</th><th></th></tr>
+  </table>
+  <h3 id="total">Tổng cộng: 0 VND</h3>
+
+  <!-- Hộp xem chi tiết -->
+  <div id="overlay" onclick="closeAll()"></div>
+  <div id="detailBox">
+    <h3>Chi tiết sản phẩm</h3>
+    <p><b>Mã:</b> <span id="d_id"></span></p>
+    <p><b>Tên:</b> <span id="d_name"></span></p>
+    <p><b>Giá:</b> <span id="d_price"></span> VND</p>
+    <p><b>Mô tả:</b></p>
+    <p id="d_desc"></p>
+    <button onclick="closeAll()">Đóng</button>
+  </div>
+
+  <!-- Hộp sửa sản phẩm -->
+  <div id="formBox">
+    <h3>✏️ Chỉnh sửa sản phẩm</h3>
+    <label>Mã sản phẩm:</label>
+    <input type="text" id="f_id" readonly>
+    <label>Tên sản phẩm:</label>
+    <input type="text" id="f_name">
+    <label>Giá:</label>
+    <input type="number" id="f_price">
+    <label>Mô tả:</label>
+    <textarea id="f_desc" rows="3"></textarea>
+    <button onclick="saveEdit()">Lưu</button>
+    <button onclick="closeAll()">Hủy</button>
+  </div>
+
+  <script>
+    var products = [];
+    var cart = [];
+    var editingProduct = null;
+
+    function loadXML() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "products.xml", true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var xmlDoc = xhr.responseXML;
+          var list = xmlDoc.getElementsByTagName("product");
+          for (var i = 0; i < list.length; i++) {
+            var id = list[i].getAttribute("id");
+            var name = list[i].getElementsByTagName("name")[0].textContent;
+            var price = parseInt(list[i].getElementsByTagName("price")[0].textContent);
+            var desc = list[i].getElementsByTagName("desc")[0].textContent;
+            products.push({ id, name, price, desc });
+          }
+          displayProducts();
+        }
+      };
+      xhr.send();
+    }
+
+    function displayProducts() {
+      var tbl = document.getElementById('productTable');
+      for (var i = 0; i < products.length; i++) {
+        var p = products[i];
+        var row = tbl.insertRow();
+        row.insertCell().innerText = p.id;
+        row.insertCell().innerText = p.name;
+        row.insertCell().innerText = p.price.toLocaleString() + " VND";
+
+        var btnView = document.createElement("button");
+        btnView.innerText = "Xem";
+        btnView.onclick = (function(prod) { return function() { showDetail(prod); }; })(p);
+        row.insertCell().appendChild(btnView);
+
+        var btnEdit = document.createElement("button");
+        btnEdit.innerText = "Sửa";
+        btnEdit.onclick = (function(prod) { return function() { editProduct(prod); }; })(p);
+        row.insertCell().appendChild(btnEdit);
+
+        var btnAdd = document.createElement("button");
+        btnAdd.innerText = "Thêm";
+        btnAdd.onclick = (function(prod) { return function() { addToCart(prod); }; })(p);
+        row.insertCell().appendChild(btnAdd);
+      }
+    }
+
+    function showDetail(prod) {
+      document.getElementById("d_id").innerText = prod.id;
+      document.getElementById("d_name").innerText = prod.name;
+      document.getElementById("d_price").innerText = prod.price.toLocaleString();
+      document.getElementById("d_desc").innerText = prod.desc;
+      document.getElementById("overlay").style.display = "block";
+      document.getElementById("detailBox").style.display = "block";
+    }
+
+    function editProduct(prod) {
+      editingProduct = prod;
+      document.getElementById("f_id").value = prod.id;
+      document.getElementById("f_name").value = prod.name;
+      document.getElementById("f_price").value = prod.price;
+      document.getElementById("f_desc").value = prod.desc;
+      document.getElementById("overlay").style.display = "block";
+      document.getElementById("formBox").style.display = "block";
+    }
+
+    function saveEdit() {
+      if (!editingProduct) return;
+      editingProduct.name = document.getElementById("f_name").value;
+      editingProduct.price = parseInt(document.getElementById("f_price").value);
+      editingProduct.desc = document.getElementById("f_desc").value;
+      refreshProductTable();
+      closeAll();
+    }
+
+    function refreshProductTable() {
+      var tbl = document.getElementById('productTable');
+      tbl.innerHTML = "<tr><th>Mã</th><th>Tên sản phẩm</th><th>Giá</th><th>Chi tiết</th><th>Sửa</th><th>Thêm vào giỏ</th></tr>";
+      displayProducts();
+    }
+
+    function addToCart(prod) {
+      var found = cart.find(item => item.id === prod.id);
+      if (found) found.qty++;
+      else cart.push({ ...prod, qty: 1 });
+      showCart();
+    }
+
+    function showCart() {
+      var tbl = document.getElementById('cartTable');
+      tbl.innerHTML = "<tr><th>Mã</th><th>Tên sản phẩm</th><th>Giá</th><th>Số lượng</th><th>Thành tiền</th><th></th></tr>";
+      var total = 0;
+      for (var c of cart) {
+        var row = tbl.insertRow();
+        row.insertCell().innerText = c.id;
+        row.insertCell().innerText = c.name;
+        row.insertCell().innerText = c.price.toLocaleString() + " VND";
+        var qtyCell = row.insertCell();
+        var inp = document.createElement("input");
+        inp.type = "number"; inp.value = c.qty; inp.min = 1;
+        inp.onchange = e => { c.qty = parseInt(e.target.value); showCart(); };
+        qtyCell.appendChild(inp);
+        var sum = c.qty * c.price;
+        total += sum;
+        row.insertCell().innerText = sum.toLocaleString() + " VND";
+        var delBtn = document.createElement("button");
+        delBtn.innerText = "Xóa";
+        delBtn.onclick = () => { cart = cart.filter(x => x.id !== c.id); showCart(); };
+        row.insertCell().appendChild(delBtn);
+      }
+      document.getElementById("total").innerText = "Tổng cộng: " + total.toLocaleString() + " VND";
+    }
+
+    function closeAll() {
+      document.getElementById("overlay").style.display = "none";
+      document.getElementById("detailBox").style.display = "none";
+      document.getElementById("formBox").style.display = "none";
+    }
+
+    window.onload = loadXML;
+  </script>
+</body>
+</html>
